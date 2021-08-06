@@ -25,4 +25,10 @@ public class VistaConsola {
     public void imprimir(String mensaje){
         System.out.println(mensaje);
     }
+
+    public String leerString(String mensaje){
+        System.out.println(mensaje);
+        String dato = leer.nextLine();
+        return dato;
+    }
 }

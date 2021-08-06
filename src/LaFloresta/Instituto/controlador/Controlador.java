@@ -26,27 +26,28 @@ public class Controlador {
             switch (opcion) {
                 case 1:
                     vista.imprimir("Ingresar estudiante");
+                    String nombre = vista.leerString("Ingresar nombres:\n");
                     break;
                 case 2:
                     vista.imprimir("Buscar estudiante");
                     vista.imprimir("Ingresar correo institucional:\n");
                     break;
                 case 3:
-                    System.out.println("Modificar estudiante");
-                    System.out.println("Ingresar correo institucional:\n");
+                    vista.imprimir("Modificar estudiante");
+                    vista.imprimir("Ingresar correo institucional:\n");
                     break;
                 case 4:
-                    System.out.println("Eliminar estudiante");
-                    System.out.println("Ingresar correo institucional:\n");
+                    vista.imprimir("Eliminar estudiante");
+                    vista.imprimir("Ingresar correo institucional:\n");
                     break;
                 case 5:
-                    System.out.println("El directorio de los estudiantes\n");
+                    vista.imprimir("El directorio de los estudiantes\n");
                     break;
                 case 6:
-                    System.out.println("Hasta pronto");
+                    vista.imprimir("Hasta pronto");
                     break;
                 default:
-                    System.out.println("Opción incorrecta");
+                    vista.imprimir("Opción incorrecta");
 
             }
         }while (opcion != 6);
