@@ -28,7 +28,20 @@ public class VistaConsola {
 
     public String leerString(String mensaje){
         System.out.println(mensaje);
-        String dato = leer.nextLine();
+        String dato = leer.next();
+        return dato;
+    }
+
+    public long leerLong(String mensaje){
+        long dato = 0;
+        try{
+            System.out.println(mensaje);
+            dato = leer.nextLong();
+        }catch (Exception e){
+            leer.nextLong();
+            System.out.println("El dato ingresado no es de tipo long");
+            dato = 0;
+        }
         return dato;
     }
 }

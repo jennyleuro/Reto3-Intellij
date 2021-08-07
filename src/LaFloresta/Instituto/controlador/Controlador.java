@@ -1,5 +1,6 @@
 package LaFloresta.Instituto.controlador;
 
+import LaFloresta.Instituto.modelo.EstudianteDTO;
 import LaFloresta.Instituto.vista.VistaConsola;
 
 import java.util.*;
@@ -7,9 +8,11 @@ import java.util.*;
 public class Controlador {
 
     private VistaConsola vista;
+    private EstudianteDTO estudiante;
 
     public Controlador(){
         vista = new VistaConsola();
+        estudiante = new EstudianteDTO();
         funcionar();
 
     }
@@ -25,23 +28,19 @@ public class Controlador {
 
             switch (opcion) {
                 case 1:
-                    vista.imprimir("Ingresar estudiante");
-                    String nombre = vista.leerString("Ingresar nombres:\n");
+                    ingresarEstudiante();
                     break;
                 case 2:
-                    vista.imprimir("Buscar estudiante");
-                    vista.imprimir("Ingresar correo institucional:\n");
+                    buscarEstudiante();
                     break;
                 case 3:
-                    vista.imprimir("Modificar estudiante");
-                    vista.imprimir("Ingresar correo institucional:\n");
+                    modificarEstudiante();
                     break;
                 case 4:
-                    vista.imprimir("Eliminar estudiante");
-                    vista.imprimir("Ingresar correo institucional:\n");
+                    eliminarEstudiante();
                     break;
                 case 5:
-                    vista.imprimir("El directorio de los estudiantes\n");
+                    directorioEstudiante();
                     break;
                 case 6:
                     vista.imprimir("Hasta pronto");
@@ -52,5 +51,24 @@ public class Controlador {
             }
         }while (opcion != 6);
 
+    }
+
+    public void ingresarEstudiante(){
+        vista.imprimir("Ingresar estudiante");
+        String nombre = vista.leerString("Ingresar nombres:\n");
+        String apellidos = vista.leerString("Ingresar apellidos:\n");
+        String fechaNacimiento = vista.leerString("Ingresar fecha de nacimiento (YYYY-MM-DD):\n");
+        String correoInstitucional = vista.leerString("Ingresar correo institucional:\n");
+        String correoPersonal = vista.leerString("Ingresar correo personal:\n");
+        long telefonoCelular = vista.leerLong("Ingresar número de celular:\n");
+        long telefonoFijo = vista.leerLong("Ingresar número fijo:\n");
+        String programa = vista.leerString("Ingresar programa:");
+
+        if (estudiante.getEstudianteDAO().agregarEstudiante(nombre, apellidos, fechaNacimiento, correoInstitucional,
+                correoPersonal, telefonoCelular, telefonoFijo, programa, estudiante.getEstudiantes(), estudiante.getFile())){
+            vista.imprimir("\nSe agregó el estudiante\n");
+        } else {
+            vista.imprimir("\nNo fue posible agregar al estudiante\n");
+        }
     }
 }
