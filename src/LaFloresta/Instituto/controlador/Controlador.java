@@ -1,5 +1,6 @@
 package LaFloresta.Instituto.controlador;
 
+import LaFloresta.Instituto.modelo.Estudiante;
 import LaFloresta.Instituto.modelo.EstudianteDTO;
 import LaFloresta.Instituto.vista.VistaConsola;
 
@@ -55,7 +56,7 @@ public class Controlador {
 
     public void ingresarEstudiante(){
         vista.imprimir("Ingresar estudiante");
-        String nombre = vista.leerString("Ingresar nombres:\n");
+        String nombres = vista.leerString("Ingresar nombres:\n");
         String apellidos = vista.leerString("Ingresar apellidos:\n");
         String fechaNacimiento = vista.leerString("Ingresar fecha de nacimiento (YYYY-MM-DD):\n");
         String correoInstitucional = vista.leerString("Ingresar correo institucional:\n");
@@ -64,11 +65,38 @@ public class Controlador {
         long telefonoFijo = vista.leerLong("Ingresar número fijo:\n");
         String programa = vista.leerString("Ingresar programa:");
 
-        if (estudiante.getEstudianteDAO().agregarEstudiante(nombre, apellidos, fechaNacimiento, correoInstitucional,
+        if (estudiante.getEstudianteDAO().agregarEstudiante(nombres, apellidos, fechaNacimiento, correoInstitucional,
                 correoPersonal, telefonoCelular, telefonoFijo, programa, estudiante.getEstudiantes(), estudiante.getFile())){
             vista.imprimir("\nSe agregó el estudiante\n");
         } else {
             vista.imprimir("\nNo fue posible agregar al estudiante\n");
+        }
+    }
+
+    public void buscarEstudiante(){
+        vista.imprimir("Buscar estudiante");
+        String correoInstitucional = vista.leerString("Ingresar correo institucional:\n");
+        Estudiante respuesta = estudiante.getEstudianteDAO().buscarEstudiante(correoInstitucional, estudiante.getListaEstudiantes());
+
+        if (respuesta != null){
+            vista.imprimir(respuesta.toString());
+        } else {
+            vista.imprimir("El Estudiante no se encuentra registrado");
+        }
+    }
+
+    public void modificarEstudiante(){
+        vista.imprimir("Modificar estudiante");
+        String correoInstitucional = vista.leerString("Ingresar correo institucional:\n");
+        Estudiante respuesta = estudiante.getEstudianteDAO().buscarEstudiante(correoInstitucional, estudiante.getListaEstudiantes());
+
+        if (respuesta != null){
+            String correoPersonal = vista.leerString("Ingresar correo personal:\n");
+            long telefonoCelular = vista.leerLong("Ingresar número de celular:\n");
+            long telefonoFijo = vista.leerLong("Ingresar número fijo:");
+            String programa = vista.leerString("Ingresar programa:");
+
+            estudiante.getEstudianteDAO().
         }
     }
 }
