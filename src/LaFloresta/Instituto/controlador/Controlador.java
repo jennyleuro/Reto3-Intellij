@@ -66,7 +66,7 @@ public class Controlador {
         String programa = vista.leerString("Ingresar programa:");
 
         if (estudiante.getEstudianteDAO().agregarEstudiante(nombres, apellidos, fechaNacimiento, correoInstitucional,
-                correoPersonal, telefonoCelular, telefonoFijo, programa, estudiante.getEstudiantes(), estudiante.getFile())){
+                correoPersonal, telefonoCelular, telefonoFijo, programa, estudiante.getListaEstudiantes(), estudiante.getFile())){
             vista.imprimir("\nSe agregó el estudiante\n");
         } else {
             vista.imprimir("\nNo fue posible agregar al estudiante\n");
@@ -96,7 +96,26 @@ public class Controlador {
             long telefonoFijo = vista.leerLong("Ingresar número fijo:");
             String programa = vista.leerString("Ingresar programa:");
 
-            estudiante.getEstudianteDAO().
+            estudiante.getEstudianteDAO().eliminarEstudiante(correoInstitucional, estudiante.getListaEstudiantes(),
+                    estudiante.getFile());
+            estudiante.getEstudianteDAO().agregarEstudiante(nombres, apellidos, fechaNacimiento, correoPersonal, correoInstitucional,
+                    telefonoCelular, telefonoFijo, programa, estudiante.getListaEstudiantes(), estudiante.getFile());
         }
+    }
+
+    public void eliminarEstudiante(){
+        vista.imprimir("Eliminar estudiante");
+        String correoInstitucional = vista.leerString("Ingresar correo institucional:\n");
+        if(estudiante.getEstudianteDAO().eliminarEstudiante(correoInstitucional, estudiante.getListaEstudiantes(),
+                estudiante.getFile())){
+            vista.imprimir("Se eliminó el estudiante\n");
+        } else {
+            vista.imprimir("El estudiante no se encuentra registrado\n");
+        }
+    }
+
+    public void directorioEstudiante(){
+        vista.imprimir("El directorio de los estudiantes\n");
+        vista.imprimir(estudiante.getEstudianteDAO().verEstudiantes(estudiante.getFile()));
     }
 }

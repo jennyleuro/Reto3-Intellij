@@ -31,5 +31,32 @@ public class Archivo {
         }
     }
 
+    public ArrayList<Estudiante> leerArchivo(File archivo){
+        ArrayList<Estudiante> listaEstudiantes = new ArrayList<Estudiante>();
+        if(archivo.length() != 0){
+            try{
+                entrada = new ObjectInputStream(new FileInputStream(archivo));
+                listaEstudiantes = (ArrayList<Estudiante>)entrada.readObject();
+            } catch (IOException | ClassNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+        return listaEstudiantes;
+    }
 
+    public ObjectInputStream getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(ObjectInputStream entrada) {
+        this.entrada = entrada;
+    }
+
+    public ObjectOutputStream getSalida() {
+        return salida;
+    }
+
+    public void setSalida(ObjectOutputStream salida) {
+        this.salida = salida;
+    }
 }
