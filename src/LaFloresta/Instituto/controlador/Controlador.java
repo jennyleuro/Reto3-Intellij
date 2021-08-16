@@ -79,6 +79,7 @@ public class Controlador {
         Estudiante respuesta = estudiante.getEstudianteDAO().buscarEstudiante(correoInstitucional, estudiante.getListaEstudiantes());
 
         if (respuesta != null){
+            vista.imprimir("Información del estudiante");
             vista.imprimir(respuesta.toString());
         } else {
             vista.imprimir("El Estudiante no se encuentra registrado");
@@ -96,10 +97,14 @@ public class Controlador {
             long telefonoFijo = vista.leerLong("Ingresar número fijo:");
             String programa = vista.leerString("Ingresar programa:");
 
-            estudiante.getEstudianteDAO().eliminarEstudiante(correoInstitucional, estudiante.getListaEstudiantes(),
-                    estudiante.getFile());
-            estudiante.getEstudianteDAO().agregarEstudiante(nombres, apellidos, fechaNacimiento, correoPersonal, correoInstitucional,
-                    telefonoCelular, telefonoFijo, programa, estudiante.getListaEstudiantes(), estudiante.getFile());
+            if (estudiante.getEstudianteDAO().modificarEstudiante(correoInstitucional, correoPersonal,
+                    telefonoCelular, telefonoFijo, programa, estudiante.getListaEstudiantes(), estudiante.getFile())){
+                vista.imprimir("Se modificó el estudiante\n");
+            } else {
+                vista.imprimir("No fue posible modificar el estudiante\n");
+            }
+        } else {
+            vista.imprimir("El estudiante no se encuentra registrado\n");
         }
     }
 

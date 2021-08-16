@@ -3,6 +3,7 @@ package LaFloresta.Instituto.modelo.persistencia;
 import LaFloresta.Instituto.modelo.Estudiante;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EstudianteDAO {
@@ -63,6 +64,29 @@ public class EstudianteDAO {
             }
         } catch (IOException e1){
             e1.printStackTrace();
+        }
+        return respuesta;
+    }
+
+    public boolean modificarEstudiante(String correoInstitucional, String correoPersonal, long telefonoCelular,
+                                       long telefonoFijo, String programa, ArrayList<Estudiante> listaEstudiantes,
+                                       File file){
+        boolean respuesta = false;
+        try{
+            for(Estudiante estudiante: listaEstudiantes){
+                if(estudiante.getCorreoInstitucional().equals(correoInstitucional)){
+                    estudiante.setCorreoPersonal(correoPersonal);
+                    estudiante.setTelefonoCelular(telefonoCelular);
+                    estudiante.setTelefonoFijo(telefonoFijo);
+                    estudiante.setPrograma(programa);
+                    file.delete();
+                    file.createNewFile();
+                    archivo.escribirEnArchivo(listaEstudiantes, file);
+                    respuesta = true;
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
         }
         return respuesta;
     }
